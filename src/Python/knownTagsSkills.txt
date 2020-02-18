@@ -1,0 +1,24 @@
+machine learning
+deep learning
+neural networks
+natural language processing
+nlp
+computer vision
+image
+spark
+hadoop
+sql
+graph database
+mysql
+kubernetes
+docker
+hive
+kafka
+tensorflow
+pytorch
+mxnet
+react
+redux
+angular
+mapreduce
+tcp
