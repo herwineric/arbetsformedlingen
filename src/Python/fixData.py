@@ -9,8 +9,8 @@ import pickle
 
 ####
 
-step1 = False
-step2 = False
+step1 = True
+step2 = True
 step3 = True
 
 #####
@@ -35,17 +35,9 @@ ft_model = fasttext.load_model("\\".join(os.getcwd().split("\\")[:-3]) + "\\lid.
 def correctText(text: str, remove = True):
     corr = text
 
-    #corr = corr.replace("t.ex.", "till exempel")
-    #corr = corr.replace("t.ex", "till exempel")
-
     if remove:
         for sep in ["-", "!", "&", "%", "(", ")", "]", "[", "{", "}", "$", ":",";", "®"]: #Removal
             corr = corr.replace(sep, "")
-    #else:
-    #    for sep in [".",  ",", "/", "?"]: #Change
-    #        corr = corr.replace(sep, " " + sep + " ")
-
-    #corr = corr.replace(". net", ".net")
     return corr
 
 
@@ -101,6 +93,8 @@ if filesExist & step1:
     except UnicodeEncodeError as e:
         print("error with text:\n", t)
 #endregion
+
+
 
 
 #region Label the text
@@ -188,6 +182,10 @@ if step3 & step2:
     tokenizer = BertTokenizer.from_pretrained(pretrained_model_name, do_lower_case=False)
     tokenizer.add_tokens(lang) # Add language and skills to library so that we do not split these
     tokenizer.add_tokens(skills)
+
+    metaData = {"lenVocab" : len(tokenizer)}
+    with open("metaData.pkl", "wb") as pFile:
+        pickle.dump(metaData, pFile) 
 
     tagTexts = [tagText(text, i) for i,text in enumerate(filter(None, texts))]
 
